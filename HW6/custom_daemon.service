@@ -1,0 +1,6 @@
+[Unit]
+Description=custom_daemon
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /home/custom_daemon.sh
