@@ -7,6 +7,9 @@ RED='\033[0;31m'
 NORMAL='\033[0m'
 FQDN="myapp.com"
 ENTER_DIRECTORY=""
+WAIT_DIRECTORY=""
+WAIT_LOG="/var/log/wait.log"
+WAIT_FILE=""
 HW6=""
 IP=""
 
@@ -71,7 +74,27 @@ function hosts_add_overwrite {
 }
 
 function wait_ {
-	echo "Yes 6"
+	function date_create_file {
+	date +%H:%M:%S
+}
+
+	echo "Enter the path to the directory in which we will wait: "
+        read WAIT
+	while true; do
+		if ls "$WAIT"/DELETE_ME
+		then mkdir "$WAIT"/DELETE_ME/temp | echo "Created temp directory in "$WAIT"/DELETE_ME" >> $WAIT_LOG
+			break
+		fi	
+		sleep 2
+
+		if cat "$WAIT"/DELETE_ME.txt
+		then date_create_file >> "$WAIT"/DELETE_ME.txt
+			break
+		fi
+		sleep 2	
+	done
+
+	
 }
 
 echo "1. Alphabet directory"
@@ -112,5 +135,6 @@ wait_
  echo "Please select number 1-6 again"
   ;;
 esac
+
 
 
