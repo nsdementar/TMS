@@ -44,7 +44,7 @@ fi
 function compare2 {
 	local A=""
 	local B=""
-	echo -e "Enter number A\n"
+       	echo -e "Enter number A\n"
 	read A
 	echo -e "Enter number B\n"
 	read B
@@ -57,11 +57,31 @@ function compare2 {
 	       echo "A < B"
 	fi	       
         compare2
-	
 }
 
-#function compare3 {
-#}
+function compare2_1 {
+        A=$1
+	B=$2
+	if [[ "$A" -eq "$B" ]]; then
+                echo -e "$A = $B\n"
+        elif [[ "$A" -gt "$B" ]]; then
+               echo -e "$A > $B\n"
+        else
+               echo "$A < $B"
+        fi
+}
+
+function compare3 {
+	echo -e "Enter number A\n"
+	read A3
+	echo -e "Enter number B\n"
+	read B3
+	echo -e "Enter number C\n"
+	read C3
+	compare2_1 $A3 $B3
+	compare2_1 $A3 $C3
+	compare2_1 $B3 $C3
+}
 
 case $HW12 in
 	1)
