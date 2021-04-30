@@ -1,0 +1,9 @@
+[Group1]
+node1 ansible_host=10.10.18.228
+
+[Group2]
+node2 ansible_host=10.10.18.229
+
+[Group3:children]
+Group1
+Group2
