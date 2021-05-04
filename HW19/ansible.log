@@ -1,0 +1,35 @@
+ansible all -m debug -a "var=hostvars[inventory_hostname].ansible_host"
+
+2021-04-30 13:03:21,834 p=1267181 u=root n=ansible | node1 | SUCCESS => {
+    "hostvars[inventory_hostname].ansible_host": "10.10.18.228"
+}
+2021-04-30 13:03:21,846 p=1267181 u=root n=ansible | node2 | SUCCESS => {
+    "hostvars[inventory_hostname].ansible_host": "10.10.18.229"
+}
+
+
+
+ansible all -i hosts.yaml -m debug -a "var=hostvars[inventory_hostname].ansible_host"
+
+2021-04-30 13:03:52,933 p=1267255 u=root n=ansible | node1 | SUCCESS => {
+    "hostvars[inventory_hostname].ansible_host": "10.10.18.228"
+}
+2021-04-30 13:03:52,941 p=1267255 u=root n=ansible | node2 | SUCCESS => {
+    "hostvars[inventory_hostname].ansible_host": "10.10.18.229"
+}
+
+
+
+ansible Group1 -m debug -a "var=hostvars[inventory_hostname].ansible_host"
+
+2021-04-30 13:05:04,896 p=1267408 u=root n=ansible | node1 | SUCCESS => {
+    "hostvars[inventory_hostname].ansible_host": "10.10.18.228"
+}
+
+
+
+ansible Group1 -i hosts.yaml -m debug -a "var=hostvars[inventory_hostname].ansible_host"
+
+2021-04-30 13:05:17,778 p=1267454 u=root n=ansible | node1 | SUCCESS => {
+    "hostvars[inventory_hostname].ansible_host": "10.10.18.228"
+}
