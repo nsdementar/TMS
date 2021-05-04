@@ -1,0 +1,8 @@
+---
+- name: HW20
+  hosts: all
+  become: yes
+
+  roles:
+    - hw201
+    - hw202
