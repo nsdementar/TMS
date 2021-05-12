@@ -1,0 +1,33 @@
+---
+
+- block: #Block for Ubuntu
+    - name: copy package
+      copy: src={{ item }} dest={{ dest_folder }} mode=744
+      loop:
+        - "curl.deb" 
+
+    - name: Install curl deb package
+      apt: 
+        name: "{{ dest_folder }}/curl.deb"
+        state: present
+
+  when: ansible_os_family == "Debian"
+
+- block: #Block for Centos
+    - name: copy rpm package
+      copy: src={{ item }} dest={{ dest_folder }} mode=744
+      loop:
+        - "curl.rpm"
+
+    - name: Install curl rpm package
+      yum : 
+        name: "{{ dest_folder }}/ curl.rpm"
+        state: present
+      
+  when: ansible_os_family == "RedHat"
+
+- name: Create user hw20 with /bin/sh and home folder /opt/hw20
+  user:
+    name: hw20
+    shell: "{{ SH }}"
+    home: "{{ HF }}"
