@@ -14,7 +14,7 @@ pipeline {
         stage('GIT') {
             steps {
                 echo "========== Start checkout from GitHUB =========="
-                git branch: 'HW27',
+                git branch: 'main',
                 url: 'https://github.com/nsdementar/TMS.git'
                 sh 'ls -al $PLAYBOOK_PATH'
             }
