@@ -3,6 +3,7 @@ pipeline {
     options { timestamps () }
     triggers {
         pollSCM 'H/1 * * * *'
+    }
     environment {
         PLAYBOOK_PATH    = "HW27/ansible_playbook"
         PROJECT_PATH     = "./project_build"
@@ -37,3 +38,4 @@ pipeline {
             }
         }
     }
+}
