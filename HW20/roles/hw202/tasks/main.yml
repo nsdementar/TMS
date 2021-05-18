@@ -1,33 +1,43 @@
 ---
-
 - block: #Block for Ubuntu
-    - name: copy package
-      copy: src={{ item }} dest={{ dest_folder }} mode=744
-      loop:
-        - "curl.deb" 
+    - name: "Copy a .deb package"
+      become: true
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: "{{ item.owner }}"
+        mode: "{{ item.mode }}"
+      with_items:
+        - "{{ curl_files }}"
 
-    - name: Install curl deb package
-      apt: 
-        name: "{{ dest_folder }}/curl.deb"
+    - name: "Install a .deb package"
+      become: true
+      ansible.builtin.apt:
+        deb: "{{ item.dest }}"
         state: present
-
+        update_cache: yes
+        force: yes
+      with_items:
+        - "{{ curl_files }}"
   when: ansible_os_family == "Debian"
 
 - block: #Block for Centos
-    - name: copy rpm package
-      copy: src={{ item }} dest={{ dest_folder }} mode=744
-      loop:
-        - "curl.rpm"
-
-    - name: Install curl rpm package
-      yum : 
-        name: "{{ dest_folder }}/ curl.rpm"
-        state: present
+    - name: "Copy a .rpm package"
+      become: true
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: "{{ item.owner }}"
+        mode: "{{ item.mode }}"
+      with_items:
+        - "{{ curl_files }}"
       
+    - name: "Install a .rpm package"
+      become: true
+      ansible.builtin.yum:
+        name: "{{ item.dest }}"
+        state: present
+        update_cache: yes
+      with_items:
+        - "{{ curl_files }}"
   when: ansible_os_family == "RedHat"
-
-- name: Create user hw20 with /bin/sh and home folder /opt/hw20
-  user:
-    name: hw20
-    shell: "{{ SH }}"
-    home: "{{ HF }}"

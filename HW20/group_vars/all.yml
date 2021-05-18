@@ -1,0 +1,7 @@
+---
+SSH_PORT: 22
+git:
+  repo: 'https://github.com/nsdementar/HW9.git'
+  dest: "/opt/hw20/git/"
+hw20_user: 
+  - { name: hw20, shell: /bin/bash, home: /opt/hw20/ }

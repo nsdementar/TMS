@@ -1,0 +1,10 @@
+---
+group_hw20: ZONE_2
+packages_git_py_docker:
+  - name: git
+  - name: docker
+  - name: python3
+hw20_user: 
+  - { name: hw20, shell: /bin/bash, home: /opt/hw20/ }
+curl_files:
+ - { src: "curl.rpm", dest: "/opt/hw20/curl.rpm", owner: "hw20", mode: "0744" }
