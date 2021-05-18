@@ -32,4 +32,5 @@
     dest: "{{ item.dest }}"
     clone: yes
   with_items:
-    - "{{ git }}" 
+    - "{{ git }}"
+

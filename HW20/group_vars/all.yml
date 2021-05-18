@@ -5,3 +5,4 @@ git:
   dest: "/opt/hw20/git/"
 hw20_user: 
   - { name: hw20, shell: /bin/bash, home: /opt/hw20/ }
+
