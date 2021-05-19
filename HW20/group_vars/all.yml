@@ -5,4 +5,7 @@ git:
   dest: "/opt/hw20/git/"
 hw20_user: 
   - { name: hw20, shell: /bin/bash, home: /opt/hw20/ }
-
+curl_files_deb:
+  - { src: "curl.deb", dest: "/opt/hw20/curl.deb", owner: "hw20", mode: "0744" }
+curl_files_rpm:
+  - { src: "curl.rpm", dest: "/opt/hw20/curl.rpm", owner: "hw20", mode: "0744" }

@@ -4,8 +4,3 @@ packages_git_py_docker:
   - name: git
   - name: docker.io
   - name: python3
-hw20_user: 
-  - { name: hw20, shell: /bin/bash, home: /opt/hw20/ }
-curl_files:
-  - { src: "curl.deb", dest: "/opt/hw20/curl.deb", owner: "hw20", mode: "0744" }
-

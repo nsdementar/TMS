@@ -1,44 +1,32 @@
 ---
-- block: #Block for Ubuntu
-    - name: "Copy a .deb package"
-      become: true
-      ansible.builtin.copy:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        owner: "{{ item.owner }}"
-        mode: "{{ item.mode }}"
-      with_items:
-        - "{{ curl_files }}"
+- name: "Copy a curl package"
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - "{{ curl_files_deb }}"
+    - "{{ curl_files_rpm }}"
 
-    - name: "Install a .deb package"
-      become: true
-      ansible.builtin.apt:
-        deb: "{{ item.dest }}"
-        state: present
-        update_cache: yes
-        force: yes
-      with_items:
-        - "{{ curl_files }}"
+- name: "Install a .deb package"
+  become: true
+  ansible.builtin.apt:
+    deb: "{{ item.dest }}"
+    state: present
+    update_cache: yes
+    force: yes
+  with_items:
+    - "{{ curl_files_deb }}"
   when: ansible_os_family == "Debian"
-
-- block: #Block for Centos
-    - name: "Copy a .rpm package"
-      become: true
-      ansible.builtin.copy:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        owner: "{{ item.owner }}"
-        mode: "{{ item.mode }}"
-      with_items:
-        - "{{ curl_files }}"
-      
-    - name: "Install a .rpm package"
-      become: true
-      ansible.builtin.yum:
-        name: "{{ item.dest }}"
-        state: present
-        update_cache: yes
-      with_items:
-        - "{{ curl_files }}"
+    
+- name: "Install a .rpm package"
+  become: true
+  ansible.builtin.yum:
+    name: "{{ item.dest }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - "{{ curl_files_rpm }}"
   when: ansible_os_family == "RedHat"
-

@@ -1,21 +1,10 @@
 ---
-- block: #Install for Ubuntu
-   - name: "Install git,docker,python3"
-     ansible.builtin.package:
-       name: "{{ item.name }}"
-       update_cache: yes
-     with_items:
-       - "{{ packages_git_py_docker }}"
-  when: ansible_os_family == "Debian"
-        
-- block: #Install for Centos
-   - name: "Install git,docker,python3"
-     ansible.builtin.package:
-       name: "{{ item.name }}"
-       update_cache: yes
-     with_items:
-       - "{{ packages_git_py_docker }}"
-  when: ansible_os_family == "RedHat"
+- name: "Install git,docker,python3"
+  ansible.builtin.package:
+    name: "{{ item.name }}"
+    update_cache: yes
+  with_items:
+    - "{{ packages_git_py_docker }}"
 
 - name: "Create user hw20"
   ansible.builtin.user:
@@ -33,4 +22,3 @@
     clone: yes
   with_items:
     - "{{ git }}"
-
