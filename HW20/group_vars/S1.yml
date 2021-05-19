@@ -1,0 +1,8 @@
+---
+group_hw20: ZONE_1
+packages_git_py_docker:
+  - name: git
+  - name: docker.io
+  - name: python3
+curl_files:
+  - { src: "curl.deb", dest: "/opt/hw20/curl.deb", owner: "hw20", mode: "0744" }
