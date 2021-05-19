@@ -1,8 +1,14 @@
 ---
 group_hw20: ZONE_1
-packages_git_py_docker:
+packages_git_py:
   - name: git
-  - name: docker.io
   - name: python3
 curl_files:
   - { src: "curl.deb", dest: "/opt/hw20/curl.deb", owner: "hw20", mode: "0744" }
+packages_docker:
+  - name: docker-ce
+  - name: docker-ce-cli
+  - name: containerd.io
+url_key_docker:
+  - { url: "https://download.docker.com/linux/ubuntu/gpg", dest: "" }
+repo_stable: deb https://download.docker.com/linux/ubuntu focal stable

@@ -1,12 +1,12 @@
 ---
-- name: "Install git,docker,python3"
-  ansible.builtin.package:
-    name: "{{ item.name }}"
-    update_cache: yes
-  with_items:
-    - "{{ packages_git_py_docker }}"
-  notify: "Docker start"
-  
+- name: "Install git and pyhton3"
+  import_tasks: git-python.yml
+  become: true
+
+- name: "Install Docker"
+  import_tasks: docker.yml
+  become: true
+ 
 - name: "Create user hw20"
   ansible.builtin.user:
     name: "{{ item.name }}"
