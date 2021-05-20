@@ -1,0 +1,16 @@
+---
+group_hw20: ZONE_2
+packages_git_py:
+  - name: git
+  - name: python3
+curl_files:
+  - { src: "curl.rpm", dest: "/opt/hw20/curl.rpm", owner: "hw20", mode: "0744" }
+packages_docker:
+  - name: docker-ce
+  - name: docker-ce-cli
+  - name: containerd.io
+url_key_docker:
+  - { url: "https://download.docker.com/linux/centos/docker-ce.repo", dest: "/etc/yum.repos.d/docker-ce.repo" }
+sudo_groups: 
+  - name: wheel
+  - name: docker

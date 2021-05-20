@@ -1,0 +1,5 @@
+- name: "Start Docker service"
+  ansible.builtin.systemd:
+    name: docker.socket
+    state: started
+    enabled: yes

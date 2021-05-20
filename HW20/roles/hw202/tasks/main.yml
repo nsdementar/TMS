@@ -1,0 +1,41 @@
+---
+- name: "Copy a curl package"
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - "{{ curl_files }}"
+    
+- name: "Install a .deb package"
+  become: true
+  ansible.builtin.apt:
+    deb: "{{ item.dest }}"
+    state: present
+    update_cache: yes
+    force: yes
+  with_items:
+    - "{{ curl_files }}"
+  when: ansible_os_family == "Debian"
+    
+- name: "Install a .rpm package"
+  become: true
+  ansible.builtin.yum:
+    name: "{{ item.dest }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - "{{ curl_files }}"
+  when: ansible_os_family == "RedHat"
+
+- name: "Create a file /HW20_FILE_INFO with content of a variable"
+  become: true
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - "{{ template_var }}"
