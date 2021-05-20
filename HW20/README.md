@@ -24,3 +24,5 @@
 ![](https://i.ibb.co/yF7wSSD/docker.jpg)
 
 ![](https://i.ibb.co/9VQ8FCb/Final.jpg)
+
+![](https://i.ibb.co/TB5DfKM/sudo.jpg)

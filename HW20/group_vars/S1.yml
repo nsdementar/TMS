@@ -12,3 +12,6 @@ packages_docker:
 url_key_docker:
   - { url: "https://download.docker.com/linux/ubuntu/gpg", dest: "" }
 repo_stable: deb https://download.docker.com/linux/ubuntu focal stable
+sudo_groups: 
+  - name: sudo
+  - name: docker

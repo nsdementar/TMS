@@ -11,3 +11,6 @@ packages_docker:
   - name: containerd.io
 url_key_docker:
   - { url: "https://download.docker.com/linux/centos/docker-ce.repo", dest: "/etc/yum.repos.d/docker-ce.repo" }
+sudo_groups: 
+  - name: wheel
+  - name: docker

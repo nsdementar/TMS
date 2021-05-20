@@ -6,7 +6,11 @@
 - name: "Install Docker"
   import_tasks: docker.yml
   become: true
- 
+
+- name: "Add sudo to user"
+  set_fact: sudo=",{{ sudo_groups }}"
+  when: sudo_groups is defined
+
 - name: "Create user hw20"
   ansible.builtin.user:
     name: "{{ item.name }}"
