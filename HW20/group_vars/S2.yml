@@ -1,14 +1,14 @@
 ---
 group_hw20: ZONE_2
 packages_git_py:
-  - name: git
-  - name: python3
+  - { name: "git-", version: "2.27.0-1.el8" }
+  - { name: "python36-", version: "3.6.6-13.buildroot.el8" }
 curl_files:
   - { src: "curl.rpm", dest: "/opt/hw20/curl.rpm", owner: "hw20", mode: "0744" }
 packages_docker:
-  - name: docker-ce
-  - name: docker-ce-cli
-  - name: containerd.io
+  - { name: "docker-ce", version: "20.10.5-3.el7" }
+  - { name: "docker-ce-cli", version: "20.10.5-3.el7" }
+  - { name: "containerd.io", version: "1.4.3-3.1.el7" }
 url_key_docker:
   - { url: "https://download.docker.com/linux/centos/docker-ce.repo", dest: "/etc/yum.repos.d/docker-ce.repo" }
 sudo_groups: 

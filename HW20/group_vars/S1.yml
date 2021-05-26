@@ -1,14 +1,14 @@
 ---
 group_hw20: ZONE_1
 packages_git_py:
-  - name: git
-  - name: python3
+  - { name: "git=", version: "1:2.25.1-1ubuntu3.1" }
+  - { name: "python3=", version: "3.8.2-0ubuntu2"}
 curl_files:
   - { src: "curl.deb", dest: "/opt/hw20/curl.deb", owner: "hw20", mode: "0744" }
 packages_docker:
-  - name: docker-ce
-  - name: docker-ce-cli
-  - name: containerd.io
+  - { name: "docker-ce=", version: "5:20.10.6-3-0-ubuntu-focal" }
+  - { name: "docker-ce-cli=", version: "5:20.10.6-3-0-ubuntu-focal" }
+  - { name: "containerd.io=", version: "1.4.4-1" }
 url_key_docker:
   - { url: "https://download.docker.com/linux/ubuntu/gpg", dest: "" }
 repo_stable: deb https://download.docker.com/linux/ubuntu focal stable
