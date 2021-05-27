@@ -1,0 +1,9 @@
+[Unit]
+Description=hw21
+
+[Timer]
+OnUnitActiveSec= {{ deamon_var.OnUnitActiveSec }}
+OnBootSec= {{ deamon_var.OnBootSec }}
+
+[Install]
+WantedBy=timers.target

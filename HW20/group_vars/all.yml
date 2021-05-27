@@ -7,3 +7,11 @@ hw20_user:
   - { name: hw20, shell: /bin/bash, home: /opt/hw20/ }
 template_var:
  - { src: "main.j2", dest: "/opt/hw20/HW20_FILE_INFO", owner: "hw20", mode: "0644" }
+deamon_templates:
+ - { src: "hw21.sh", dest: "/opt/hw20/hw21.sh", owner: "root", mode: "0744" }
+ - { src: "hw21.service.j2", dest: "/lib/systemd/system/hw21.service", owner: "root", mode: "0644" }
+ - { src: "hw21.timer.j2", dest: "/lib/systemd/system/hw21.timer", owner: "root", mode: "0644" }
+deamon_var:
+  OnUnitActiveSec: 30s
+  OnBootSec: 10s
+  ExecStart: /opt/hw20/hw21.sh

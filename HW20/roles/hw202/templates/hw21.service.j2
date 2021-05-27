@@ -1,0 +1,6 @@
+[Unit]
+Description=hw21
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash {{ deamon_var.ExecStart }}
