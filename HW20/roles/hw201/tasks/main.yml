@@ -20,6 +20,30 @@
   with_items:
     - "{{ hw20_user }}"
 
+- name: "Generate passwords"
+  shell: date +%s | base64 | head -c 12
+  register: genpasswd
+
+- name: "hash passwords"
+  set_fact: passwd="{{ genpasswd.stdout_lines | string | password_hash('sha512') }}"
+  no_log: true
+
+- name: "Add the user 'hw22_1 and m hw22_2' with a sh shell and '/opt/hw22' home directory"
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    shell: "{{ item.shell }}"
+    home: "{{ item.home }}"
+    groups: "{{ item.group }}"
+    password: "{{ passwd }}"
+    state: present
+  loop: "{{ hw22_users }}"
+  no_log: true
+  become: true
+
+- name: "Print passwords"
+  debug:
+    msg: "Password is - {{ passwd }}"
+
 - name: "Clone public git repo"
   ansible.builtin.git:
     repo: "{{ item.repo }}"

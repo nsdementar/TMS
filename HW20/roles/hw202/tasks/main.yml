@@ -60,3 +60,27 @@
   loop:
     - hw21.timer
     - hw21.service
+
+- name: "Optional compress logrotate"
+  set_fact: compress="{{ compress_var }}"
+  when: compress_var is defined
+
+- name: "Hosts ip"
+  #set_fact: host_ip={{ lookup('dig', ansible_host) }}
+  set_fact: host_ip={{ ansible_default_ipv4.address }}
+
+- name: "Touch file"
+  ansible.builtin.file:
+    path: "{{ host_ip }}.txt"
+    state: touch
+  
+- name: "Copy  files to hosts ip"
+  ansible.builtin.copy:
+    src:  "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    mode: "{{ item.mode }}"
+    remote_src: true
+  with_items:
+    - "{{ host_ip_var }}"
+  become: true
