@@ -7,7 +7,7 @@ Do not show output of this task.
 - Create a file hosts_list.txt on your local host which should contain date and hosts address playbook running on.
 - Create files with {{hots_ip}}.txt for each your host. Add  task to copy file to remote host base on remote host IP.
 
-[HW22 PR]()
+[HW22 PR](https://github.com/nsdementar/TMS/pull/13)
 
 # Screenshots
 
