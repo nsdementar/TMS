@@ -6,12 +6,28 @@ git:
 hw20_user: 
   - { name: hw20, shell: /bin/bash, home: /opt/hw20/ }
 template_var:
- - { src: "main.j2", dest: "/opt/hw20/HW20_FILE_INFO", owner: "hw20", mode: "0644" }
+  - { src: "main.j2", dest: "/opt/hw20/HW20_FILE_INFO", owner: "hw20", mode: "0644" }
 deamon_templates:
- - { src: "hw21.sh", dest: "/opt/hw20/hw21.sh", owner: "root", mode: "0744" }
- - { src: "hw21.service.j2", dest: "/lib/systemd/system/hw21.service", owner: "root", mode: "0644" }
- - { src: "hw21.timer.j2", dest: "/lib/systemd/system/hw21.timer", owner: "root", mode: "0644" }
+  - { src: "hw21.sh", dest: "/opt/hw20/hw21.sh", owner: "root", mode: "0744" }
+  - { src: "hw21.service.j2", dest: "/lib/systemd/system/hw21.service", owner: "root", mode: "0644" }
+  - { src: "hw21.timer.j2", dest: "/lib/systemd/system/hw21.timer", owner: "root", mode: "0644" }
+  - { src: "logrotate.j2", dest: "/etc/logrotate.d/logrotate-hw22", owner: "root", mode: "0600" }
 deamon_var:
   OnUnitActiveSec: 30s
   OnBootSec: 10s
   ExecStart: /opt/hw20/hw21.sh
+period: daily
+rotate: 10
+size: 10M
+compress_var: compress
+hw22_users:
+  - { name: hw21_1, group: "docker", shell: /bin/bash, home: /opt/hw21_1 }
+  - { name: hw21_2, group: "docker", shell: /bin/bash, home: /opt/hw21_2 }
+host_ip_var:
+  - { src: "{{ host_ip }}.txt", dest: "/opt/hw20", owner: "hw20", mode: "0644" }
+local_path: hosts_list.txt
+copy_path: "/opt/hw20"
+hosts_ip: "{{ ansible_default_ipv4.address }}.txt"
+line:
+  - { line: "{{ ansible_date_time.date }}" }
+  - { line: "{{ ansible_default_ipv4.address }}" }

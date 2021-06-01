@@ -60,3 +60,41 @@
   loop:
     - hw21.timer
     - hw21.service
+
+- name: "Optional compress logrotate"
+  set_fact: compress="{{ compress_var }}"
+  when: compress_var is defined
+
+#- name: "Touch file hosts_list.txt"
+#  ansible.builtin.file:
+#    path: "{{ local_path }}"
+#    state: touch
+#  delegate_to: localhost
+
+- name: "Date and Hostname hosts_list.txt"
+  lineinfile:
+    path: "{{ local_path }}"
+    line: "{{ item.line }}"
+    create: yes
+  delegate_to: localhost
+  with_items:
+    - "{{ line }}"
+
+#- name: "Hostname hosts_list.txt"
+#  lineinfile:
+#    path: "{{ local_path }}"
+#    line: "{{ ansible_default_ipv4.address }}"
+#    create: yes
+#  delegate_to: localhost
+
+- name: "Touch file hosts_ip.txt"
+  ansible.builtin.file:
+    path: "{{ hosts_ip }}"
+    state: touch
+
+- name: "Copy files hosts_ip.txt"
+  copy:
+    src: "{{ hosts_ip }}"
+    dest: "{{ copy_path }}"
+    remote_src: true
+  become: true
