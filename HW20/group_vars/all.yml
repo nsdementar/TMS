@@ -28,3 +28,6 @@ host_ip_var:
 local_path: hosts_list.txt
 copy_path: "/opt/hw20"
 hosts_ip: "{{ ansible_default_ipv4.address }}.txt"
+line:
+  - { line: "{{ ansible_date_time.date }}" }
+  - { line: "{{ ansible_default_ipv4.address }}" }

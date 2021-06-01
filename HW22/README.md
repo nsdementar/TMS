@@ -14,7 +14,7 @@ Do not show output of this task.
 ![Result](https://i.ibb.co/R90Q2qW/Result-1.jpg)
 ![Result](https://i.ibb.co/RQLtmKv/Result-2.jpg)
 ![Result](https://i.ibb.co/rp4KZdn/Result-3.jpg)
-![Result](https://i.ibb.co/L9BfKB9/hosts-ip.jpg)
+![Result](https://i.ibb.co/chHdf4j/hosts-ip.jpg)
 
 -------------------------
 # Ubuntu Server
