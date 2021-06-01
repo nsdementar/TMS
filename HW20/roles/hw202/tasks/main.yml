@@ -69,6 +69,7 @@
   ansible.builtin.file:
     path: "{{ local_path }}"
     state: touch
+  delegate_to: localhost
   
 - name: "Date hosts_list.txt"
   lineinfile:
