@@ -25,3 +25,6 @@ hw22_users:
   - { name: hw21_2, group: "docker", shell: /bin/bash, home: /opt/hw21_2 }
 host_ip_var:
   - { src: "{{ host_ip }}.txt", dest: "/opt/hw20", owner: "hw20", mode: "0644" }
+local_path: hosts_list.txt
+copy_path: "/opt/hw20"
+hosts_ip: "{{ ansible_default_ipv4.address }}.txt"
