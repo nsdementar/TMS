@@ -42,4 +42,3 @@
   notify: 
     - "Start Nginx service"
     - "Restart Nginx service"
-    
