@@ -1,0 +1,85 @@
+- name: "Touch file in remote hosts"
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.dest }}"
+    force: no
+    group: "{{ item.group }}"
+    owner: "{{ item.owner }}"
+    mode: "{{ item.mode }}"
+  loop: "{{ file }}"
+  become: true
+
+- name: "Rename file /opt/hw23_test_file"
+  block:
+    - name: "stat for file /opt/hw23_test_file"
+      stat: path=/opt/hw23_test_file
+      register: file_stat
+
+    - name: "Debug message"
+      debug:
+       msg: "File /opt/hw23_test_file not found"
+      when: file_stat.stat.exists == False
+
+    - name: "Rename File /opt/hw23_test_file"
+      command: mv  /opt/hw23_test_file /opt/hw23_test_file_exists
+      when: file_stat.stat.exists
+  become: true
+
+- name: "Create s_link"
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    state: link
+  with_items:
+    - "{{ s_link }}"
+  become: true
+
+- name: "Rename link /opt/hw23_link"
+  block:
+    - name: "stat for link /opt/hw23_link"
+      stat: path=/opt/hw23_link
+      register: link_stat
+
+    - name: "Debug message"
+      debug:
+        msg: "Link /opt/hw23_link not found"
+      when: link_stat.stat.exists == False
+
+    - name: "Rename link /opt/hw23_link"
+      command: mv  /opt/hw23_link /opt/hw23_test_file_link
+      when: link_stat.stat.exists
+  become: true
+
+- name: "Install Packages"
+  import_tasks: hw23_1.yml
+  become: true 
+
+- name: "Testing nginx configs" 
+  block:
+    - name: "Check Nginx configs"
+      shell: "/usr/sbin/nginx -t"
+      register: nginx_config_status
+      become: true
+   
+    - name: "Nginx test status"
+      debug:
+        msg: "Nginx Config OK because rc={{ nginx_config_status.rc }}"
+
+    - name: "Service NGINX restart and enable on boot"
+      systemd:
+        name: nginx
+        state: restarted
+        enabled: yes
+        daemon_reload: yes
+      when: nginx_config_status.rc == 0
+       
+    - name: "Print 20 strings Nginx logs"
+      command: "tail -n 20 {{ nginx_log }}"
+      register: printlogsnginx
+      become: true
+
+    - name: "Print logs"
+      debug:
+        msg: "{{ printlogsnginx.stdout_lines }}"
