@@ -6,24 +6,43 @@
     group: "{{ item.group }}"
     owner: "{{ item.owner }}"
     mode: "{{ item.mode }}"
-  loop: "{{ file }}"
+  with_items:
+    - "{{ file }}"
   become: true
 
-- name: "Rename file /opt/hw23_test_file"
+- name: "stat for file /opt/hw23_test_file"
+  stat:
+    path: "/opt/hw23_test_file"
+  register: file_stat
+
+- name: "Rename File /opt/hw23_test_file"
+  command:
+    cmd: mv  /opt/hw23_test_file /opt/hw23_test_file_exists
+  when: file_stat.stat.exists
+  tags: rename
+
+- name: "Rename file 2"
   block:
-    - name: "stat for file /opt/hw23_test_file"
-      stat: path=/opt/hw23_test_file
-      register: file_stat
+    - name: copy file
+      copy:
+        remote_src: yes
+        src: "{{ item.dest }}"
+        dest: "{{ item.newname }}"
+      with_items:
+        - "{{ file }}"
 
-    - name: "Debug message"
-      debug:
-       msg: "File /opt/hw23_test_file not found"
-      when: file_stat.stat.exists == False
-
-    - name: "Rename File /opt/hw23_test_file"
-      command: mv  /opt/hw23_test_file /opt/hw23_test_file_exists
-      when: file_stat.stat.exists
-  become: true
+    - name: remove old file
+      file:
+        path: "{{ item.dest }}"
+        state: absent
+      with_items:
+        - "{{ file }}"
+  when: file_stat.stat.exists
+   
+- name: "Debug message"
+  ansible.builtin.debug:
+    msg: "File /opt/hw23_test_file not found"
+  when: file_stat.stat.exists == False
 
 - name: "Create s_link"
   file:
@@ -66,14 +85,9 @@
     - name: "Nginx test status"
       debug:
         msg: "Nginx Config OK because rc={{ nginx_config_status.rc }}"
-
-    - name: "Service NGINX restart and enable on boot"
-      systemd:
-        name: nginx
-        state: restarted
-        enabled: yes
-        daemon_reload: yes
       when: nginx_config_status.rc == 0
+      notify:
+        - "Restart Nginx service"
        
     - name: "Print 20 strings Nginx logs"
       command: "tail -n 20 {{ nginx_log }}"
@@ -83,3 +97,18 @@
     - name: "Print logs"
       debug:
         msg: "{{ printlogsnginx.stdout_lines }}"
+
+- name: "Task 3b" 
+  block:
+   - name: "hw23_3 rc=0"
+     set_fact: rc=0
+     when: ansible_facts['os_family'] == "Debian"
+
+   - name: "hw23_3 rc=2"
+     set_fact: rc=2
+     when: ansible_facts['os_family'] == "RedHat"
+
+   - name: "testing rc"
+     debug:
+       msg: "hw23_3 rc={{ rc }}"
+     when: rc != 0

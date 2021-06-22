@@ -1,27 +1,13 @@
-- name: "Start Docker service"
-  ansible.builtin.service:
-    name: "{{ docker }}"
-    state: started
-    enabled: yes
-  become_user: root
- 
-- name: "Start Nginx service"
-  ansible.builtin.service:
-    name: "{{ nginx }}"
-    state: started
-    enabled: yes
-  become_user: root
-
 - name: "Restart Docker service"
   ansible.builtin.service:
-    name: "{{ docker }}"
+    name: docker
     state: restarted
     enabled: yes
   become_user: root
 
 - name: "Restart Nginx service"
   ansible.builtin.service:
-    name: "{{ nginx }}"
+    name: nginx
     state: restarted
     enabled: yes
   become_user: root

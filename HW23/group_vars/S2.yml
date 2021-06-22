@@ -11,9 +11,6 @@ packages_docker:
   - { name: "containerd.io", version: "1.4.3-3.1.el7" }
 url_key_docker:
   - { url: "https://download.docker.com/linux/centos/docker-ce.repo", dest: "/etc/yum.repos.d/docker-ce.repo" }
-sudo_groups: 
-  - name: wheel
-  - name: docker
 package_nginx:
   - { name: "nginx" }
 nginx_log : /var/log/nginx/access.log

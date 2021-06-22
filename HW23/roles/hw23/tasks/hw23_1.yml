@@ -15,13 +15,11 @@
   when: ansible_os_family == "Debian"
 
 #Block to CentOS
-- name: "Install Docker on CentOS"
-  block:
-    - name: "Add Docker Repository"
-      ansible.builtin.get_url:
-        url: "{{ item.url }}"
-        dest: "{{ item.dest }}"
-      with_items: "{{ url_key_docker }}"
+- name: "Add Docker Repository"
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ url_key_docker }}"
   when: ansible_os_family == "RedHat"
 
 #Install Docker Engine
@@ -39,6 +37,13 @@
     name: "{{ item.name }}"
   with_items:
     - "{{ package_nginx }}"
-  notify: 
-    - "Start Nginx service"
-    - "Restart Nginx service"
+
+- name: "Start and enable the Docker daemon and nginx"
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  become: true
+  loop:
+    - docker
+    - nginx
