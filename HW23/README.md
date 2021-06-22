@@ -16,6 +16,6 @@
 
 # Screenshots
 
-![Result](https://i.ibb.co/DQQnbjZ/Result-1.jpg)
-![Result](https://i.ibb.co/StdVp4m/Result-2.jpg)
-![Result](https://i.ibb.co/CKvwxVL/Screenshot-3.jpg)
+![Result](https://i.ibb.co/5M0FBzy/Result-1.jpg)
+![Result](https://i.ibb.co/zQcfVTZ/Result-2.jpg)
+![Result](https://i.ibb.co/LCKyNMy/Screenshot-3.jpg)
