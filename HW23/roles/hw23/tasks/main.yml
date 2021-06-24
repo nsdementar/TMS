@@ -1,0 +1,133 @@
+- name: "Touch file in remote hosts"
+  copy:
+    content: "{{ item.content }}"
+    dest: "{{ item.dest }}"
+    force: no
+    group: "{{ item.group }}"
+    owner: "{{ item.owner }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - "{{ file }}"
+  become: true
+
+- name: "stat for file /opt/hw23_test_file"
+  stat:
+    path: "/opt/hw23_test_file"
+  register: file_stat
+
+- name: "Rename File /opt/hw23_test_file"
+  command:
+    cmd: mv  /opt/hw23_test_file /opt/hw23_test_file_exists
+  when: file_stat.stat.exists
+  tags: rename
+
+- name: "Rename file 2"
+  block:
+    - name: copy file
+      copy:
+        remote_src: yes
+        src: "{{ item.dest }}"
+        dest: "{{ item.newname }}"
+      with_items:
+        - "{{ file }}"
+
+    - name: remove old file
+      file:
+        path: "{{ item.dest }}"
+        state: absent
+      with_items:
+        - "{{ file }}"
+  when: file_stat.stat.exists
+   
+- name: "Debug message"
+  ansible.builtin.debug:
+    msg: "File /opt/hw23_test_file not found"
+  when: file_stat.stat.exists == False
+
+- name: "Create s_link"
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    state: link
+  with_items:
+    - "{{ s_link }}"
+  become: true
+
+- name: "Rename link /opt/hw23_link"
+  block:
+    - name: "stat for link /opt/hw23_link"
+      stat: path=/opt/hw23_link
+      register: link_stat
+
+    - name: "Debug message"
+      debug:
+        msg: "Link /opt/hw23_link not found"
+      when: link_stat.stat.exists == False
+
+    - name: "Rename link /opt/hw23_link"
+      command: mv  /opt/hw23_link /opt/hw23_test_file_link
+      when: link_stat.stat.exists
+  become: true
+
+- name: "Install Packages"
+  import_tasks: hw23_1.yml
+  become: true 
+
+- name: "Testing nginx configs" 
+  block:
+    - name: "Check Nginx configs"
+      shell: "/usr/sbin/nginx -t"
+      register: nginx_config_status
+      become: true
+   
+    - name: "Nginx test status"
+      debug:
+        msg: "Nginx Config OK because rc={{ nginx_config_status.rc }}"
+      when: nginx_config_status.rc == 0
+      notify:
+        - "Restart Nginx service"
+       
+    - name: "Print 20 strings Nginx logs"
+      command: "tail -n 20 {{ nginx_log }}"
+      register: printlogsnginx
+      become: true
+
+    - name: "Print logs"
+      debug:
+        msg: "{{ printlogsnginx.stdout_lines }}"
+
+- name: "Create fail script"
+  become: true
+  ansible.builtin.blockinfile:
+    path: "/opt/hw23/fail_script.sh"
+    create: yes
+    mode: "0755"
+    block: |
+      #!/bin/bash
+      exit $1
+
+- name: "Task 3b" 
+  block:
+   - name: "hw23_3 rc=0"
+     command:
+       cmd: "bash /opt/hw23/fail_script.sh 0"
+     become: true
+     register: hw23_rc
+     when: ansible_facts['os_family'] == "Debian"
+     ignore_errors: true
+
+   - name: "hw23_3 rc=2"
+     command:
+      cmd: "bash /opt/hw23/fail_script.sh 2"
+     become: true
+     register: hw23_rc
+     when: ansible_facts['os_family'] == "RedHat"
+     ignore_errors: true
+
+   - name: "Print fail task"
+     ansible.builtin.debug:
+       msg: "rc={{ hw23_rc.rc }} "
+     when: hw23_rc.rc != 0
+     ignore_errors: true

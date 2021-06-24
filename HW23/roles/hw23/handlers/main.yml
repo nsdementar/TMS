@@ -1,0 +1,13 @@
+- name: "Restart Docker service"
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+    enabled: yes
+  become_user: root
+
+- name: "Restart Nginx service"
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+    enabled: yes
+  become_user: root

@@ -1,0 +1,49 @@
+#Block to Ubuntu
+- name: "Install Docker on Ubuntu"
+  block:
+    - name: "Add GPG key"
+      ansible.builtin.apt_key:
+        url: "{{ item.url }}"
+        state: present
+      with_items:
+        - "{{ url_key_docker }}"
+
+    - name: "Add repos"
+      ansible.builtin.apt_repository:
+        repo: "{{ repo_stable }}"
+        state: present        
+  when: ansible_os_family == "Debian"
+
+#Block to CentOS
+- name: "Add Docker Repository"
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ url_key_docker }}"
+  when: ansible_os_family == "RedHat"
+
+#Install Docker Engine
+- name: "Install Docker Engine"
+  ansible.builtin.package:
+    name: "{{ item.name }}"
+    update_cache: yes
+  with_items:
+    - "{{ packages_docker }}"
+  notify: "Start Docker service"
+
+#Install Nginx
+- name: "Install Nginx"
+  ansible.builtin.package:
+    name: "{{ item.name }}"
+  with_items:
+    - "{{ package_nginx }}"
+
+- name: "Start and enable the Docker daemon and nginx"
+  ansible.builtin.service:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  become: true
+  loop:
+    - docker
+    - nginx

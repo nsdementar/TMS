@@ -1,0 +1,20 @@
+---
+group_hw20: ZONE_1
+packages_git_py:
+  - { name: "git=", version: "1:2.25.1-1ubuntu3.1" }
+  - { name: "python3=", version: "3.8.2-0ubuntu2"}
+packages:
+  - { name: "apt-transport-https", version: "2.0.5" }
+  - { name: "ca-certificates", version: "20210119~20.04.1" }
+  - { name: "curl", version: "7.68.0-1ubuntu2.5" }
+  - { name: "lsb-release", version: "11.1.0ubuntu2" }
+packages_docker:
+  - { name: "containerd.io" }
+  - { name: "docker-ce" }
+  - { name: "docker-ce-cli" }
+url_key_docker:
+  - { url: "https://download.docker.com/linux/ubuntu/gpg", dest: "" }
+repo_stable: deb https://download.docker.com/linux/ubuntu focal stable
+package_nginx:
+  - { name: "nginx" }
+nginx_log: /var/log/nginx/access.log
