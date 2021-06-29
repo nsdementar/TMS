@@ -1,0 +1,35 @@
+pipeline {
+    agent { node { label 'Ansible' } }
+    options { timestamps () }
+    triggers {
+        pollSCM 'H/1 * * * *'
+    }
+
+    stages {
+        stage('GIT') {
+            steps {
+                echo "========== Start checkout from GitHUB =========="
+                git branch: 'main',
+                url: 'https://github.com/nsdementar/TMS.git'
+                sh 'ls -al'
+            }
+        }
+
+        stage('Syntax check') {
+            steps {
+                echo "========== Start syntax check =========="
+                sh '''cd HW23
+                ansible-playbook -i hosts.yml hw23.yml --syntax-check'''
+            }
+        }
+        
+        stage('Start Ansible Playbook') {
+            steps {
+                echo "========== Start Ansible Playbook =========="
+                sh '''cd HW23
+                ansible-playbook -i hosts.yml --tags=untagged -u $ANSIBLE_USER hw23.yml'''
+                echo "========== End Ansible Playbook =========="
+            }
+        }
+    }
+}
