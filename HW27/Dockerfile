@@ -27,6 +27,7 @@ RUN /usr/local/bin/install-plugins.sh ssh-slaves \
     declarative-pipeline-migration-assistant \
 	pipeline-stage-view
 USER root
+# hadolint ignore=DL3008,DL3013,DL4001,DL3014,DL4006,DL3016,DL3042
 RUN apt-get update && apt-get install -y apt-transport-https \
   python-pip \
   ca-certificates \
