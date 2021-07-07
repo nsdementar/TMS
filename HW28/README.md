@@ -18,3 +18,12 @@
 - Update previous pipeline with new stage - push docker to your registry. It should be a private image, so provide creds(as jenkins secret) for docker login.
 - Do previous task as a separate pipeline. It should be triggered after successful linting.
 - Create multibranch pipeline to validate your PRs with your Jenkinsfile created above.
+
+![Result](https://i.ibb.co/dbfvHXd/Docker-image0.jpg)
+![Result](https://i.ibb.co/p15k5Ty/Docker-image1.jpg)
+![Result](https://i.ibb.co/W35vqH5/Docker-image2.jpg)
+![Result](https://i.ibb.co/0qg2dc5/Docker-image3.jpg)
+![Result](https://i.ibb.co/Jsytt1f/Docker-image4.jpg)
+![Result](https://i.ibb.co/HG3fGpj/Docker-image5.jpg)
+![Result](https://i.ibb.co/mhWwnPM/Dockerhub-1.jpg)
+![Result](https://i.ibb.co/6g8YpC1/Dockerhub-2.jpg)
