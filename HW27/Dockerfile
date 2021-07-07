@@ -27,7 +27,7 @@ RUN /usr/local/bin/install-plugins.sh ssh-slaves \
     declarative-pipeline-migration-assistant \
 	pipeline-stage-view
 USER root
-# hadolint ignore=DL3008,DL3013,DL4001,DL3014,DL4006,DL3016,DL3042,DL3015,DL3047,SC1091,DL3059
+# hadolint ignore=DL3008,DL3013,DL4001,DL3014,DL4006,DL3016,DL3042,DL3015,DL3047,SC1091
 RUN apt-get update && apt-get install -y apt-transport-https \
   python-pip \
   ca-certificates \
@@ -70,5 +70,6 @@ RUN apt-get update && apt-get install -y apt-transport-https \
     /usr/share/man \
     /usr/share/doc \
     /usr/share/doc-base	
+# hadolint ignore=DL3059
 RUN groupadd docker && usermod -aG docker jenkins && gpasswd -a jenkins docker
 USER jenkins
