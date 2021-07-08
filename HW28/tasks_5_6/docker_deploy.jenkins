@@ -8,8 +8,7 @@ pipeline {
     }
     environment { 
         registry = "alexpalkhouski/tms" 
-        registryCredential = 'dockerhub_id' 
-        dockerImage = '${USER_REPO}/${IMAGE_NAME}'
+        registryCredential = 'dockerhub_id'
     }
     options { timestamps () }
     triggers {
@@ -21,7 +20,7 @@ pipeline {
             steps{
               script {
               docker.withRegistry( '', registryCredential ) {
-              dockerImage.push("${VERSION}_${GIT_COMMIT}_${BUILD_NUMBER}")
+              docker.image("${USER_REPO}/${IMAGE_NAME}").push("${VERSION}_${GIT_COMMIT}_${BUILD_NUMBER}")
                 }
               }
             }
