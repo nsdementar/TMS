@@ -9,7 +9,7 @@ pipeline {
     environment { 
         registry = "alexpalkhouski/tms" 
         registryCredential = 'dockerhub_id' 
-        dockerImage = ''
+        dockerImage = '${USER_REPO}/${IMAGE_NAME}'
     }
     options { timestamps () }
     triggers {
