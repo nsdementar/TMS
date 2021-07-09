@@ -1,8 +1,8 @@
 name: HW29_1
 on: 
-push:
-  branches:
-    - HW29
+  push:
+    branches:
+      - HW29
 jobs:
   build:
     runs-on: ubuntu-latest
