@@ -1,0 +1,21 @@
+name: HW29_2
+
+on:
+  push:
+    branches:
+    - HW29
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
+    - name: Play Ansible Playbook
+      uses: arillso/action.playbook@master
+      with:
+        playbook: tests/playbook.yml
+        inventory: tests/hosts.yml
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: 'false'
+        ANSIBLE_DEPRECATION_WARNINGS: 'false'
