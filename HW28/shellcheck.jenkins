@@ -1,0 +1,30 @@
+pipeline {
+    agent { node { label 'Ansible' } }
+    parameters {
+    string(name: 'PATH_SCRIPTS', defaultValue: 'HW6/scripts', description: '')
+    }
+    options { timestamps () }
+    triggers {
+        pollSCM 'H/1 * * * *'
+    }
+
+    stages {
+        stage('Git') {
+            steps {
+                echo "========== Start checkout from GitHUB =========="
+                git branch: 'main',
+                url: 'https://github.com/nsdementar/TMS.git'
+            }
+        }
+
+        stage('Shellcheck') {
+            steps {
+                echo "========== Start shellcheck =========="
+                sh '''
+                cd $PATH_SCRIPTS
+                find . -type f -name "*.sh" -exec shellcheck --format=gcc {} ";"
+                '''
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+---
+- hosts: S1
+  vars:
+    shellcheck_version: v0.7.1
+    shellcheck_checksum: sha256:64f17152d96d7ec261ad3086ed42d18232fcb65148b44571b564d688269d36c8
+  tasks:
+    - name: Fetch ShellCheck
+      get_url:
+        url: 'https://github.com/koalaman/shellcheck/releases/download/{{ shellcheck_version }}/shellcheck-{{ shellcheck_version }}.linux.x86_64.tar.xz'
+        dest: /tmp/shellcheck.tar.xz
+        checksum: '{{ shellcheck_checksum }}'
+      become: true
+
+    - name: Unpack ShellCheck
+      unarchive:
+        src: /tmp/shellcheck.tar.xz
+        dest: /tmp
+        list_files: true
+        remote_src: true
+      become: true
+
+    - name: Install ShellCheck to /usr/local/bin/shellcheck
+      copy:
+        src: '/tmp/shellcheck-{{ shellcheck_version }}/shellcheck'
+        dest: /usr/local/bin/shellcheck
+        mode: 0755
+        owner: root
+        remote_src: true
+      become: true
