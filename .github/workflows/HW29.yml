@@ -16,4 +16,3 @@ jobs:
         run: |
           cd HW20
           ansible-playbook hw20.yml --syntax-check
-         
