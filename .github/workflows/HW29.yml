@@ -1,18 +1,15 @@
-name: Linting of Ansible playbook
-
-on:
-  push:
-    branches:
+name: HW29_1
+on: push
+  branches:
     - HW29
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - name: checkout repo
-      uses: actions/checkout@v2
-      
+    - uses: actions/checkout@v2
+
     - name: Lint Ansible Playbook
-        run: |
-          cd HW20
-          ansible-playbook hw20.yml --syntax-check
+      uses: ansible/ansible-lint-action@master
+      with:
+        targets: "HW20/HW20.yml"
