@@ -21,4 +21,4 @@ jobs:
       with:
         playbook: HW20.yml
         directory: HW20
-      inventory: localhost
+        inventory: localhost
