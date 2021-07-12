@@ -1,4 +1,4 @@
-name: HW29_1
+name: HW29
 
 on:
   push:
@@ -22,4 +22,3 @@ jobs:
         playbook: HW20.yml
         directory: HW20
       inventory: localhost
-      
