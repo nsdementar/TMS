@@ -19,6 +19,6 @@ jobs:
     - name: Run playbook
       uses: dawidd6/action-ansible-playbook@v2
       with:
-        playbook: HW20/hw20.yml
+        playbook: HW29/HW29.yml
         #directory: HW20
         inventory: localhost
