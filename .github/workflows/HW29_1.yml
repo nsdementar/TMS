@@ -15,3 +15,11 @@ jobs:
       uses: ansible/ansible-lint-action@master
       with:
         targets: "HW20/HW20.yml"
+
+    - name: Run playbook
+      uses: dawidd6/action-ansible-playbook@v2
+      with:
+        playbook: HW20.yml
+        directory: HW20
+      inventory: localhost
+      
