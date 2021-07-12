@@ -14,11 +14,11 @@ jobs:
     - name: Lint Ansible Playbook
       uses: ansible/ansible-lint-action@master
       with:
-        targets: "HW20/HW20.yml"
+        targets: "HW29/HW29.yml"
 
     - name: Run playbook
       uses: dawidd6/action-ansible-playbook@v2
       with:
         playbook: HW29/HW29.yml
         #directory: HW20
-        inventory: localhost
+        #inventory: localhost
