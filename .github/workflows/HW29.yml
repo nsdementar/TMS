@@ -17,8 +17,7 @@ jobs:
         targets: "HW29/HW29.yml"
 
     - name: Run playbook
-      uses: dawidd6/action-ansible-playbook@v2
+      uses: roles-ansible/check-ansible-ubuntu-latest-action@master
       with:
-        playbook: HW29/HW29.yml
-        #directory: HW20
-        #inventory: localhost
+        targets: "HW29/HW29.yml"
+        hosts: 'localhost'
