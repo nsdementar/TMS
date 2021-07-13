@@ -1,6 +1,9 @@
 name: HW29
 
 on:
+  workflow_dispath:
+  repository_dispath:
+    types: deploy
   push:
     branches:
     - HW29
