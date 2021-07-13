@@ -1,7 +1,8 @@
 name: HW29
 
 on:
-  repository_dispath:
+  workflow_dispath:
+  repository_dispatch:
     types: webhook
   push:
     branches:
