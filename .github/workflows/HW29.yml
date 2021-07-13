@@ -9,7 +9,7 @@ on:
     - HW29
 
 jobs:
-  Lint Ansible Playbook:
+  Lint_Ansible_Playbook:
     runs-on: ubuntu-latest
     steps:
     - name: checkout repo
@@ -19,7 +19,7 @@ jobs:
       with:
         targets: "HW29/HW29.yml"
 
-  Run Ansible Playbook:
+  Run_Ansible_Playbook:
     - name: Run playbook
       uses: roles-ansible/check-ansible-ubuntu-latest-action@master
       with:
