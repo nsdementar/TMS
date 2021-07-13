@@ -25,7 +25,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run playbook
-    - uses: roles-ansible/check-ansible-ubuntu-latest-action@master
+      uses: roles-ansible/check-ansible-ubuntu-latest-action@master
       with:
         targets: "HW29/HW29.yml"
         hosts: 'localhost'
