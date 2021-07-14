@@ -1,0 +1,33 @@
+name: HW29
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: webhook
+  push:
+    branches:
+    - HW29
+    paths:
+    - 'HW29/**.md'
+
+jobs:
+  Lint_Ansible_Playbook:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2
+    - name: Lint Ansible Playbook
+      uses: ansible/ansible-lint-action@master
+      with:
+        targets: "HW29/HW29.yml"
+
+  Run_Ansible_Playbook:
+    runs-on: ubuntu-latest
+    needs: Lint_Ansible_Playbook
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run playbook
+      uses: roles-ansible/check-ansible-ubuntu-latest-action@master
+      with:
+        targets: "HW29/HW29.yml"
+        hosts: 'localhost'
