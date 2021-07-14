@@ -1,0 +1,12 @@
+curl --location --request POST \
+--url 'https://api.github.com/repos/nsdementar/TMS/dispatches' \
+--header 'Authorization: token {TOKEN}' \
+--header 'Accept: application/vnd.github.everest-preview+json' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "event_type": "webhook",
+  "client_payload": {
+    "unit": false,
+    "integration": true
+  }
+}'
