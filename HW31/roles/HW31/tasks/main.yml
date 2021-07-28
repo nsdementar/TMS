@@ -68,7 +68,3 @@
     privatekey_path: /etc/ssl/{{ server_hostname }}.pem
     csr_path: /etc/ssl/{{ server_hostname }}.csr
     provider: selfsigned
-
-#- name: "Enable ssl for pages"
-
-#- name: "Add path /proxyhw31 to point to any webapp deployed with docker"
