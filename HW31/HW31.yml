@@ -1,0 +1,4 @@
+---
+  - hosts: S1
+    roles:
+      - HW31

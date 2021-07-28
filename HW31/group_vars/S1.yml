@@ -1,0 +1,21 @@
+---
+web_server_package:
+  - { name: "nginx" }
+default_page_path:
+  - { path: "/var/www/html" }
+listen_http: 80
+listen_https: 443
+nginx_user: www-data
+worker_processes: auto
+worker_connections: 512
+nginx_sites: /etc/nginx/sites-available
+page_files:
+  - { src: "page1.html.j2", dest: "/var/www/page1/index.html", owner: "www-data", group: "www-data", mode: "0755" }
+  - { src: "page2.html.j2", dest: "/var/www/page2/index.html", owner: "www-data", group: "www-data", mode: "0755" }
+  - { src: "index.html.j2", dest: "/var/www/index.html", owner: "www-data", group: "www-data", mode: "0755" }
+server_hostname: "{{ ansible_default_ipv4.address }}"
+key_size: 4096
+key_type: RSA
+country_name: BR
+email_address: hw31@ansible.com
+organization_name: TMS
