@@ -1,0 +1,12 @@
+---
+- name: "Copy Docker Compose file"
+  template:
+    src: templates/docker-compose.j2
+    dest: /home/docker-compose.yml
+
+- name: "Deploy Docker Compose"
+  become: True
+  shell:
+    cmd: "docker-compose -f docker-compose.yml up -d"
+    chdir: /home/
+    

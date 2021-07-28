@@ -68,3 +68,7 @@
     privatekey_path: /etc/ssl/{{ server_hostname }}.pem
     csr_path: /etc/ssl/{{ server_hostname }}.csr
     provider: selfsigned
+
+- include: docker.yml
+  tags: 
+  - docker_task
