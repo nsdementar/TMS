@@ -1,0 +1,74 @@
+---
+- name: "Install openssl libraries"
+  apt:
+    name: libssl-dev
+    state: present
+
+- name: "Install Nginx"
+  package:
+    name: nginx
+    state: latest
+
+- name: "Add base Nginx configuration file"
+  template:
+    src: templates/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+
+- name: "Delete default page"
+  file: name=/etc/nginx/sites-enabled/default state=absent
+
+- name: "Create 2 separate static web pages (/page1 and /page2)"
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - "{{ page_files }}" 
+ 
+- name: "Add Nginx virtual host config"
+  template:
+    src: nginx.vhost.conf.j2
+    dest: /etc/nginx/sites-available/{{ ansible_default_ipv4.address }}.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - "Restart Nginx service"
+
+- name: "Enable Nginx virtual host"
+  file:
+    src: /etc/nginx/sites-available/{{ ansible_default_ipv4.address }}.conf
+    dest: /etc/nginx/sites-enabled/{{ ansible_default_ipv4.address }}.conf
+    state: link
+  
+- name: "Create SSL directory"
+  file:
+    path: /etc/ssl
+    state: directory
+
+- name: "Generate an OpenSSL private key"
+  openssl_privatekey:
+    path: "/etc/ssl/{{ server_hostname }}.pem"
+    size: "{{ key_size }}"
+    type: "{{ key_type }}"
+
+- name: "Generate an OpenSSL Certificate Signing Request with Subject information"
+  openssl_csr:
+    path: "/etc/ssl/{{ server_hostname }}.csr"
+    privatekey_path: "/etc/ssl/{{ server_hostname }}.pem"
+    country_name: "{{ country_name }}"
+    organization_name: "{{ organization_name }}"
+    email_address: "{{ email_address }}"
+    common_name: "{{ server_hostname }}"
+
+- name: "Generate a Self Signed OpenSSL certificate"
+  openssl_certificate:
+    path: /etc/ssl/{{ server_hostname }}.crt
+    privatekey_path: /etc/ssl/{{ server_hostname }}.pem
+    csr_path: /etc/ssl/{{ server_hostname }}.csr
+    provider: selfsigned
+
+- include: docker.yml
+  tags: 
+  - docker_task
