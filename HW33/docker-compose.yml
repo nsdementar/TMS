@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test_db
+    networks:
+      - postgres
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    networks:
+      - postgres
+    depends_on:
+      - db
+    ports:
+      - "5050:80"
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    networks:
+      - postgres
+    depends_on:
+      - db
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /etc/ssl/:/etc/ssl/:ro
+      - /etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /etc/nginx/sites-available/:/etc/nginx/sites-available/:ro
+      - /etc/nginx/sites-enabled/:/etc/nginx/sites-enabled/:ro
+      - /var/www/:/var/www/:ro
+
+networks:
+  postgres:
+    driver: bridge
