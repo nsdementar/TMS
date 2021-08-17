@@ -9,7 +9,7 @@
   - SG(Security Group) should allow access to your instances only from your IP and VPC CIDR.
   - Both of them should have access to the Internet. Check prices. Nat Gateway not under free tier.
   - Instance from private subnet should NOT be available from the Internet.
-  
+
 ![Result](https://i.ibb.co/gZ5NSW5/Internet-GW.jpg)
 ![Result](https://i.ibb.co/PDgwcxq/NAT-GW.jpg)
 ![Result](https://i.ibb.co/4m89LYT/Security-Groups.jpg)
