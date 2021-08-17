@@ -23,4 +23,13 @@
 
 - How to “convert” private subnet to public and vice versa?
 
-![Result](https://i.ibb.co/8cq7vFh/Convert-private-subnet-to-public.jpg)
+Convert private subnet to public:
+![Result](https://i.ibb.co/4PVRyYr/IGW-private-subnet.jpg)
+![Result](https://i.ibb.co/KKt9s4N/Routes-private-subnet.jpg)
+![Result](https://i.ibb.co/Y3xyyrs/Private-with-Elastic-IP.jpg)
+![Result](https://i.ibb.co/fn2JQqF/Connect-o-instance.jpg)
+
+Convert public subnet to private:
+![Result](https://i.ibb.co/mByW8kC/NAT-GW-public-subnet.jpg)
+![Result](https://i.ibb.co/vw52vgT/Routes-public-subnet.jpg)
+![Result](https://i.ibb.co/7pS0qv0/Instance-settings.jpg)
