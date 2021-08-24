@@ -19,6 +19,7 @@
 - How to get info which role(user) are you?(Print username or role you currently using with aws cli).
 
 ![Result](https://i.ibb.co/vHFmWD9/AWS-user.jpg)
+![Result](https://i.ibb.co/pLPKM5R/sts.jpg)
 
 - Create ec2 instance using aws cli.
   
