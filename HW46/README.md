@@ -20,11 +20,8 @@
 
 - How can you set terraform variables via file?
 
-Use shared_credentials_file
+![Result](https://i.ibb.co/SBJphXT/variable.jpg)
+![Result](https://i.ibb.co/Gs0H4rp/variables-file.jpg)
 
 - Optional:
   - Create ec2 with ubuntu. Create an SSM document to install the latest packages for ubuntu. Run the document on this EC2.
-
-![Result](https://i.ibb.co/HV65VDd/Optional-task1.jpg)
-![Result](https://i.ibb.co/rmvr8Y2/Optional-task2.jpg)
-![Result](https://i.ibb.co/v4bQMnw/Optional-task3.jpg)
