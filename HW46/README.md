@@ -25,3 +25,8 @@
 
 - Optional:
   - Create ec2 with ubuntu. Create an SSM document to install the latest packages for ubuntu. Run the document on this EC2.
+
+![Result](https://i.ibb.co/6Z62mw7/Instance-with-ssm-agent1.jpg)
+![Result](https://i.ibb.co/FVV8WbX/Instance-with-ssm-agent2.jpg)
+![Result](https://i.ibb.co/rfr1XRV/ssm-send-command.jpg)
+![Result](https://i.ibb.co/pbPChLB/Command-history.jpg)
