@@ -1,0 +1,10 @@
+---
+schemaVersion: "2.2"
+description: "hw46 upgrade packages"
+mainSteps:
+- action: "aws:runShellScript"
+  name: "runShellScript"
+  inputs:
+    runCommand:
+    - "apt update -y"
+    - "apt upgrade -y"
